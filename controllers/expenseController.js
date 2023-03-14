@@ -5,7 +5,7 @@ const rootDir = require('../util/path')
 console.log("hellow i m inside controller")
 
 exports.saveToStorage = async(req,res,next) =>{
-    console.log("inside function")
+    console.log("inside  saveToStorage function")
     console.log(req.body)
 
     const amount = req.body.amountAdd
@@ -18,7 +18,6 @@ exports.saveToStorage = async(req,res,next) =>{
       }
       try {
         const data = await Expense.create({ expenseAmount:amount, description:description, category:category });
-          // res.status(201).redirect('/')
         res.status(201).json({ newExpense: data })
       
       } catch (error) {
@@ -56,5 +55,31 @@ exports.deleteExpense = async(req,res,next) =>{
         console.log(err)
         req.status(500).json({error:error})
 
+    }
+}
+
+exports.updateExpense = async(req,res,next) =>{
+    try {
+        const id = req.params.id
+        const updatedAmount = req.body.amountAdd
+        const updatedDesc = req.body.descriptionAdd
+        const updatedCategory = req.body.categoryAdd
+
+        const expense = await Expense.findByPk(id);
+        console.log(expense)
+    
+        if (!expense) {
+          return res.status(404).json({ error: "Expense not found !!!" });
+        }
+    
+        const data = await expense.update({
+          expenseAmount: updatedAmount,
+          description: updatedDesc,
+          category: updatedCategory,
+        });
+        res.status(201).json({updatedExpense:data})
+    }catch (error){
+        console.log(error)
+        res.status(500).json({err:"Expense Edit Unsuccessfull !!!"})
     }
 }
