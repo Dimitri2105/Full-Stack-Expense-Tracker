@@ -68,7 +68,6 @@ window.addEventListener("DOMContentLoaded", () => {
     .get("http://localhost:8000/get-expenses")
     .then((response) => {
       console.log(response);
-
       for (var i = 0; i < response.data.length; i++) {
         addItem(response.data[i]);
       }
@@ -120,7 +119,6 @@ function updateExpense(e, obj, obj_id) {
       .put(`http://localhost:8000/update-expense/${obj_id}`, updatedObj)
       .then((response) => {
         console.log(response.data.updatedExpense);
-        console.log("inside axios edit function");
         addItem(response.data.updatedExpense);
         myForm.removeEventListener("submit", arguments.callee);
         myForm.addEventListener("submit", saveToStorage);
