@@ -2,11 +2,9 @@ const Expense = require('../modal/expenseModal')
 const path = require('path')
 const rootDir = require('../util/path')
 
-console.log("hellow i m inside controller")
-
 exports.saveToStorage = async(req,res,next) =>{
-    console.log("inside  saveToStorage function")
-    console.log(req.body)
+    // console.log("inside  saveToStorage function")
+    // console.log(req.body)
 
     const amount = req.body.amountAdd
     const description = req.body.descriptionAdd
